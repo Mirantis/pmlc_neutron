@@ -1,0 +1,6 @@
+fixtures:
+  repositories:
+    stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
+    pmlc_neutron: https://github.com/mirantis/pmlc_neutron.git
+  symlinks:
+    pmlc_neutron: "#{source_dir}"
