@@ -25,7 +25,7 @@ class pmlc_neutron::server::service (
     ]
   }
 
-  $file_lines = [
+  $config_settings = [
     'neutron_debug_logging',
     'neutron_core_plugin',
     'neutron_service_plugins',
@@ -58,15 +58,15 @@ class pmlc_neutron::server::service (
     service { $service:
       ensure    => 'running',
       enable    => true,
-      require   => [File['ml2_conf_cisco'], File_line[$file_lines]],
-      subscribe => [File['ml2_conf_cisco'], File_line[$file_lines]],
+      require   => [File['ml2_conf_cisco'], Ini_setting[$config_settings]],
+      subscribe => [File['ml2_conf_cisco'], Ini_setting[$config_settings]],
     }
   } else {
     service { $service:
       ensure    => 'running',
       enable    => true,
-      require   => File_line[$file_lines],
-      subscribe => File_line[$file_lines],
+      require   => Ini_setting[$config_settings],
+      subscribe => Ini_setting[$config_settings],
     }
   }
 

@@ -59,118 +59,155 @@ class pmlc_neutron::client::config (
   ######################
 
   # Debug logging for neutron
-  file_line { 'neutron_debug_logging':
-    path  => $conf,
-    line  => "debug=${debug}",
-    match => '^debug.*$',
+  ini_setting { 'neutron_debug_logging':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'debug',
+    value   => ${debug},
+    
   }
 
   # Neutron plugin to use
-  file_line { 'neutron_core_plugin':
-    path  => $conf,
-    line  => "core_plugin = ${core_plugin}",
-    match => '^core_plugin.*$',
+  ini_setting { 'neutron_core_plugin':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'core_plugin',
+    value   => ${core_plugin},
   }
 
   # DHCP and subnet settings
-  file_line { 'neutron_dhcp_lease_duration':
-    path  => $conf,
-    line  => "dhcp_lease_duration = ${dhcp_lease_duration}",
-    match => '^dhcp_lease_duration.*$',
+  ini_setting { 'neutron_dhcp_lease_duration':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'dhcp_lease_duration',
+    value   => ${dhcp_lease_duration},
   }
 
-  file_line { 'neutron_allow_overlapping_ips':
-    path  => $conf,
-    line  => "allow_overlapping_ips = ${allow_overlapping_ips}",
-    match => '^allow_overlapping_ips.*$',
+  # Allow tenant networks to use the same CIDR ranges
+  ini_setting { 'neutron_allow_overlapping_ips':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'allow_overlapping_ips',
+    value   => ${allow_overlapping_ips},
   }
 
-  file_line { 'neutron_router_scheduler_driver':
-    path  => $conf,
-    line  => "router_scheduler_driver = ${router_scheduler_driver}",
-    match => '^router_scheduler_driver.*$',
+  ini_setting { 'neutron_router_scheduler_driver':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'router_scheduler_driver',
+    value   => ${router_scheduler_driver},
   }
 
-  file_line { 'neutron_dhcp_agents_per_network':
-    path  => $conf,
-    line  => "dhcp_agents_per_network = ${dhcp_agents_per_network}",
-    match => '^dhcp_agents_per_network.*$',
+  # Number of DHCP agents per network
+  ini_setting { 'neutron_dhcp_agents_per_network':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'dhcp_agents_per_network',
+    value   => ${dhcp_agents_per_network},
   }
 
   # Neutron API workers
-  file_line { 'neutron_api_workers':
-    path  => $conf,
-    line  => "api_workers = ${api_workers}",
-    match => '^api_workers.*$',
+  ini_setting { 'neutron_api_workers':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'api_workers',
+    value   => ${api_workers},
   }
 
   # Nova auth settings
-  file_line { 'neutron_nova_admin_user':
-    path  => $conf,
-    line  => "nova_admin_username =${nova_admin_user}",
-    match => '^nova_admin_username.*$',
+  ini_setting { 'neutron_nova_admin_user':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'nova_admin_username',
+    value   => ${nova_admin_user},
   }
 
-  file_line { 'neutron_nova_admin_pass':
-    path  => $conf,
-    line  => "nova_admin_password =${nova_admin_pass}",
-    match => '^nova_admin_password.*$',
+  ini_setting { 'neutron_nova_admin_pass':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'nova_admin_password',
+    value   => ${nova_admin_pass},
   }
 
   # RabbitMQ settings
-  file_line { 'neutron_rabbit_user':
-    path  => $conf,
-    line  => "rabbit_userid=${rabbit_user}",
-    match => '^rabbit_userid.*$',
+  ini_setting { 'neutron_rabbit_user':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'rabbit_userid',
+    value   => ${rabbit_user},
   }
 
-  file_line { 'neutron_rabbit_password':
-    path  => $conf,
-    line  => "rabbit_password=${rabbit_password}",
-    match => '^rabbit_password.*$',
+  ini_setting { 'neutron_rabbit_password':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'rabbit_password',
+    value   => ${rabbit_password},
   }
 
-  file_line { 'neutron_rabbit_virtualhost':
-    path  => $conf,
-    line  => "rabbit_virtual_host=${rabbit_virtualhost}",
-    match => '^rabbit_virtual_host.*$',
+  ini_setting { 'neutron_rabbit_virtualhost':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'DEFAULT',
+    setting => 'rabbit_virtual_host',
+    value   => ${rabbit_virtualhost},
   }
 
   # Neutron authentication
-  file_line { 'neutron_root_helper':
-    path  => $conf,
-    line  => "root_helper = ${root_helper}",
-    match => '^root_helper.*$',
+  ini_setting { 'neutron_root_helper':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'agent',
+    setting => 'root_helper',
+    value   => ${root_helper},
   }
 
-  file_line { 'neutron_admin_password':
-    path  => $conf,
-    line  => 'admin_password = %SERVICE_PASSWORD%',
-    match => '^admin_password.*$',
+  ini_setting { 'neutron_admin_password':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'keystone_authtoken',
+    setting => 'admin_password',
+    value   => '%SERVICE_PASSWORD%',
   }
 
-  file_line { 'neutron_admin_user':
-    path  => $conf,
-    line  => 'admin_user = %SERVICE_USER%',
-    match => '^admin_user.*$',
+  ini_setting { 'neutron_admin_user':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'keystone_authtoken',
+    setting => 'admin_user',
+    value   => '%SERVICE_USER%',
   }
 
   # MySQL connection to neutron DB
-  file_line { 'neutron_database_connection':
-    path  => $conf,
-    line  => "connection = mysql://${database_user}:${database_pass}@${management_vip}/neutron?&read_timeout=60",
-    match => '^connection = mysql.*$',
+  ini_setting { 'neutron_database_connection':
+    ensure  => 'present',
+    path    => $conf,
+    section => 'database',
+    setting => 'connection',
+    value   => "mysql://${database_user}:${database_pass}@${management_vip}/neutron?&read_timeout=60",
   }
 
   #########################
   ### ACI Configuration ###
   #########################
-  file { 'ml2_conf_cisco':
-    ensure  => 'file',
-    path    => '/etc/neutron/plugins/ml2/ml2_conf_cisco.ini',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('pmlc_neutron/ml2_conf_cisco.ini.erb'),
+  if $use_aci == true {
+    file { 'ml2_conf_cisco':
+      ensure  => 'file',
+      path    => '/etc/neutron/plugins/ml2/ml2_conf_cisco.ini',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('pmlc_neutron/ml2_conf_cisco.ini.erb'),
+    }
   }
 }

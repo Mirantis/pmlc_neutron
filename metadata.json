@@ -9,6 +9,7 @@
   "issues_url": "https://github.com/sbrimhall/pmlc_neutron/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name":"puppetlabs-inifile","version_requirement":">= 1.4.0"}
   ]
 }
 
