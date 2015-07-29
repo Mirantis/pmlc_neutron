@@ -7,7 +7,7 @@ class pmlc_neutron::params {
   $debug                    = true
   $management_vip           = undef
   $core_plugin              = 'neutron.plugins.ml2.plugin.Ml2Plugin'
-  $api_workers              = 1
+  $api_workers              = $::processorcount
 
   # DHCP and subnet settings
   $dhcp_lease_duration      = 600
@@ -24,7 +24,7 @@ class pmlc_neutron::params {
   $rabbit_password          = 'nova'
   $rabbit_virtualhost       = '/'
   $notification_driver      = 'messaging'
-  $rpc_workers              = 1
+  $rpc_workers              = 8
 
   # Neutron Auth
   $root_helper              = 'sudo neutron-rootwrap /etc/neutron/rootwrap.conf'
@@ -36,17 +36,22 @@ class pmlc_neutron::params {
   $database_pass            = 'neutron'
 
   # ACI related settings
-  $use_aci                  = false
-  $apic_username            = 'admin'
-  $apic_password            = 'admin'
-  $apic_name_mapping        = 'use_name'
-  $apic_provision_hostlinks = false
-  $shared_context_name      = 'net04'
-  $apic_root_helper         = 'sudo'
-  $apic_provision_infra     = false
-  $external_epg             = 'net04-ext'
-  $preexisting              = true
-  $apic_system_id           = 'openstack'
+  $use_aci                     = false
+  $apic_username               = 'admin'
+  $apic_password               = 'admin'
+  $apic_name_mapping           = 'use_name'
+  $apic_provision_hostlinks    = false
+  $shared_context_name         = 'net04'
+  $apic_root_helper            = 'sudo'
+  $apic_provision_infra        = false
+  $external_epg                = 'net04-ext'
+  $preexisting                 = true
+  $apic_system_id              = 'openstack'
+  $certificate_name            = 'ml2-cert'
+  $private_key_file            = '/etc/neutron/plugins/ml2/apic-user-cert.key'
+  $integrated_topology_service = true
+  $apic_agent_report_interval  = 60
+  $apic_agent_poll_interval    = 60
 
   # DHCP agent settings
   $enable_isolated_metadata = false
