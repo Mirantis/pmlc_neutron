@@ -254,7 +254,7 @@ class pmlc_neutron::server::config (
     ensure  => 'present',
     path    => $conf,
     section => 'keystone_authtoken',
-    setting => 'neutron_admin_password',
+    setting => 'admin_password',
     value   => $admin_password,
   }
 
